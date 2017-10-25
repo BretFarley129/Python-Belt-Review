@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login and registration</title>
+</head>
+<body>
+    <h1>User number something</h1>
+    <a href="/books">Go home you're drunk</a><br>
+    <a href="/books/add">add a new book with a review</a><br>
+    <a href="/logout">logout</a>
+    <h1>Alias: {{stuff.alias}}</h1>
+    <h4>Name: {{stuff.name}}</h4>
+    <h4>Email: {{stuff.email}}</h4>
+    <h4>Total reviews: {{tot}}</h4>
+    <br>
+    <h1>Posted reviews:</h1>
+    {%for i in revs%}
+        <a href="/books/{{i.book.id}}">{{i.book.title}}</a>
+        <br>
+    {%endfor%}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li style="color:red" {%if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login and registration</title>
+</head>
+<body>
+    <h1>Book number something</h1>
+    <a href="/books">Go home you're drunk</a><br>
+    <a href="/logout">logout</a>
+    <h1>{{book.title}}</h1>
+    <p>{{book.author.name}}</p>
+    <br>
+    <h1>Reviews:</h1>
+    {%for i in revs%}
+    <p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+    <p>Rating: {{i.rating}}</p>
+    <a href="/users/{{i.user.id}}">{{i.user.name}}:</a><br>
+    <p>{{i.content}}</p>
+    {%if i.user.id == request.session.id%}
+        <a href="/delete/{{i.id}}/{{book.id}}">DELETE POST</a>
+    {%endif%}
+    {%endfor%}
+    <form action="/books/{{book.id}}/new" method="post">
+        {%csrf_token%} 
+        <p>Add a review:</p>
+        <input type="text" name="review" id="password">
+        <p>Rating:</p>
+            <select name='rating'>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        <br>
+        <input type="submit" name="go" value="Submit">
+    </form>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li style="color:red" {%if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+</body>
+</html>

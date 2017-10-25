@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login and registration</title>
+</head>
+<body>
+    
+    <h1>Add A BOOK SUCKA</h1>
+    <a href="/books">Go home you're drunk</a><br>
+    <a href="/logout">logout</a>
+    <form action="/books/newBook" method="post">
+        {%csrf_token%}
+        <input type="hidden" name="action" value="register">
+
+        <table style="width:400px">
+            <tr><th></th><th></th></tr>
+            <tr>
+                <td>Book title:</td><td><input type="text" name="title" id="title"></td>
+            </tr><br>
+            <tr>
+                <td>Choose an Author:</td><td>
+                    <select name='a1'>
+                        {%for i in stuff%}
+                            <option value="{{i.name}}">{{i.name}}</option>
+                        {%endfor%}
+                    </select>
+                </td>
+            </tr><br>
+            <tr>
+                <td>Add a new Author:</td><td><input type="text" name="a2" id="a2"></td>
+            </tr><br>
+            <tr>
+                <td>Review:</td><td><input type="text" name="review" id="password"></td>
+            </tr><br>
+            <tr>
+                <td>Rating:</td><td>
+                    <select name='rating'>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <input type="submit" name="go" value="Submit Book and review">
+    </form>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li style="color:red" {%if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+</body>
+</html>
